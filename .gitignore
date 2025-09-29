@@ -1,0 +1,8 @@
+# Ignore large data files
+inventory.db
+data/begin_inventory.csv
+data/end_inventory.csv
+data/purchase_price.csv
+data/purchases.csv
+data/sales.csv
+data/vendor_invoice.csv
