@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore large data files
 inventory.db
 data/begin_inventory.csv
@@ -5,4 +6,13 @@ data/end_inventory.csv
 data/purchase_price.csv
 data/purchases.csv
 data/sales.csv
+=======
+# Ignore large data files
+inventory.db
+data/begin_inventory.csv
+data/end_inventory.csv
+data/purchase_price.csv
+data/purchases.csv
+data/sales.csv
+>>>>>>> 0354d2b693c0573a4d518d488778138147c38f95
 data/vendor_invoice.csv
