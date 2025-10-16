@@ -7,3 +7,6 @@
 *.db filter=lfs diff=lfs merge=lfs -text
 *.ipynb filter=lfs diff=lfs merge=lfs -text
 >>>>>>> 0354d2b693c0573a4d518d488778138147c38f95
+data/purchases.csv filter=lfs diff=lfs merge=lfs -text
+data/sales.csv filter=lfs diff=lfs merge=lfs -text
+inventory.db filter=lfs diff=lfs merge=lfs -text
