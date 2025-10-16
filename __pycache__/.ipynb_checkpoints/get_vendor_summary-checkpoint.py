@@ -2,27 +2,13 @@ import sqlite3
 import pandas as pd
 import logging
 from ingestion_db import ingest_db
-import os
-os.makedirs("logs", exist_ok=True)
-
-import logging
-
-logger = logging.getLogger("vendor_summary")
-logger.setLevel(logging.DEBUG)
-
-# Create file handler
-fh = logging.FileHandler("logs/get_vendor_summary.log")
-fh.setLevel(logging.DEBUG)
-
-# Create formatter and add it to the handler
-formatter = logging.Formatter("%(asctime)s-%(levelname)s-%(message)s")
-fh.setFormatter(formatter)
-
-# Add the handler to the logger
-logger.addHandler(fh)
-
+logging.basicConfig(
+    filename="logs/get_vendor_summary.log",
+    level=logging.DEBUG,
+    format="%(asctime)s-%(levelname)s-%(message)s",
+    filemode="a"
+)
 def create_vendor_summary(conn):
-    '''This function will merge the differnet tables to get the overall vendor summary and adding new columns in the resultant data'''
     Vendor_sales_summary=pd.read_sql_query(""" WITH FreightSummary AS (
         SELECT 
             VendorNumber,
@@ -85,12 +71,11 @@ def create_vendor_summary(conn):
 
     return Vendor_sales_summary
 def clean_data(df):
-    #cleaning the data 
     df["Volume"]=df["Volume"].astype(float)
     df.fillna(0, inplace=True)
     df["VendorName"]=df["VendorName"].str.strip()
     df["Description"]=df["Description"].str.strip()
-    # creating new features from the existing data
+
     df["GrossProfit"] = df["TotalSalesDollars"] - df["TotalPurchaseDollars"]
     df["ProfitMargin"] = (df["GrossProfit"] / df["TotalSalesDollars"]) * 100
     df["StockTurnover"] = df["TotalSalesQuantity"] / df["TotalPurchaseQuantity"]
@@ -101,16 +86,16 @@ def clean_data(df):
 if __name__=='__main__':
     #creating database connection
     conn=sqlite3.connect("inventory.db")
-    logger.info('Creating Vendor Summary Table')
+    logging.info('Creating Vendor Summary Table')
     summary_df=create_vendor_summary(conn)
-    logger.info(summary_df.head())
+    logging.info(summary_df.head())
 
-    logger.info('Cleaning Data')
+    logging.info('Cleaning Data')
     clean_df=clean_data(summary_df)
-    logger.info(clean_df.head())
+    logging.info(clean_df.head())
 
-    logger.info("Ingesting data........")
-    ingest_db(clean_df, 'vendor_sales_summary',conn)
-    logger.info("Completed")
+    logging.info("Ingesting data........")
+    ingest_db(clean_df, 'vendor_sales_summary')
+    logging.info("Completed")
     
     
