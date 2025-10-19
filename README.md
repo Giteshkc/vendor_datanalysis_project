@@ -18,7 +18,7 @@
 #### Multiple CSV files located in /data/ folder (sales, vendors, inventory)
 #### Summary table created from ingested data and used for analysis
 
-#### Tools and Technologies
+# Tools and Technologies
 
 #### SQL (Common Table Expressions, Joins, Filtering)
 #### Python (Pandas, Matplotlib, Seaborn, SciPy)
@@ -27,7 +27,7 @@
 
 # Data Cleaning & Preparation
 
-Removed transactions with:
+### Removed transactions with:
 #### Gross Profit ≤ 0
 ### Profit Margin ≤ 0
 #### Sales Quantity = 0
